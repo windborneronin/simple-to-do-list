@@ -1,0 +1,54 @@
+.container {
+    margin: 10px 10px 0px 10px;
+    background-color: #ffffff;
+}
+
+.container__header {
+    padding: 15px;
+    margin: auto;
+    border-bottom: 2px solid #eee;
+    font-size: large;
+    font-weight: 700;
+}
+
+.container__inputBlock {
+    padding: 15px;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 15px;
+}
+
+.container__inputField {
+    padding: 10px;
+    max-width: auto;
+    border: 1px solid #ccc;
+}
+
+.container__button {
+    width: 100%;
+    border: none;
+    color: white;
+    background-color: #008080;
+    cursor: pointer;
+}
+
+.container__button:hover {
+    background-color: #02a1a1;
+}
+
+.container__button:active {
+    background-color: #00d6d6;
+}
+
+@media(max-width: 767px) {
+    .container__inputBlock {
+        grid-template-columns: 2fr;
+    }
+    .container__button {
+        height: 40px;
+    }
+    .container {
+        overflow-x: auto;
+    }
+    
+}
