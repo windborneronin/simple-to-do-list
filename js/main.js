@@ -21,7 +21,6 @@
 
   const bindEvents = () => {
     const removeButtons = document.querySelectorAll(".js-remove");
-    console.log(removeButtons);
 
     removeButtons.forEach((removeButton, index) => {
       removeButton.addEventListener("click", () => {
@@ -30,7 +29,6 @@
     });
 
     const toggleDoneButtons = document.querySelectorAll(".js-done");
-    console.log(removeButtons);
 
     toggleDoneButtons.forEach((toggleDoneButton, index) => {
       toggleDoneButton.addEventListener("click", () => {
