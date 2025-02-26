@@ -29,11 +29,13 @@
     border: none;
     color: white;
     background-color: #008080;
+    transition: background 0.7s, transform 0.5s;
     cursor: pointer;
 }
 
 .container__button:hover {
     background-color: #02a1a1;
+    transform: scale(1.05);
 }
 
 .container__button:active {

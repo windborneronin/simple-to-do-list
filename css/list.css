@@ -28,6 +28,7 @@
     border: none;
     color: white;
     background-color: #008000;
+    transition: 0.5s;
     cursor: pointer;
 }
 
@@ -45,6 +46,7 @@
     border: none;
     color: white;
     background-color: #e90000;
+    transition: 0.5s;
     cursor: pointer;
 }
 
