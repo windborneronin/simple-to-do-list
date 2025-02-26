@@ -37,22 +37,38 @@
     });
   }
 
-  const render = () => {
+  const renderTasks = () => {
     let htmlString = "";
 
     for (const task of tasks) {
       htmlString += `
-                  <li class="list__item ${task.done ? "list__item--done" : ""}">
-                  <button class="js-done list__checkbox">${task.done ? "&#10004;" : ""}</button>
-                  <span class="list__text ${task.done ? "list__text--done" : ""}">${task.content}</span>
-                  <button class="js-remove list__deleteButton">&#128465;</button>
-                  </li>
+                <li class="list__item ${task.done ? "list__item--done" : ""}">
+                  <button class="js-done list__checkbox">
+                    ${task.done ? "&#10004;" : ""}
+                  </button>
+                  <span class="list__text ${task.done ? "list__text--done" : ""}">
+                    ${task.content}
+                  </span>
+                  <button class="js-remove list__deleteButton">
+                    &#128465;
+                  </button>
+                </li>
       `;
     }
 
     document.querySelector(".js-tasks").innerHTML = htmlString;
+  };
 
+  const renderButtons = () => {};
+
+  const bindButtonsEvents = () => {};
+
+  const render = () => {
+    renderTasks();    
+    renderButtons();
+    
     bindEvents();
+    bindButtonsEvents();
 
   };
 
