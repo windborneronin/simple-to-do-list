@@ -1,72 +1,112 @@
 {
 
-  const tasks = [];
+  let tasks = [];
+  let hideCompleted = false;
 
   const addNewTask = (newTaskContent) => {
-    tasks.push({
-      content: newTaskContent,
-    });
+    tasks = [
+      ...tasks,
+      { content: newTaskContent, done: false },
+    ];
     render();
+    
   };
 
   const removeTask = (taskIndex) => {
-    tasks.splice(taskIndex, 1);
+    tasks = [
+      ...tasks.slice(0, taskIndex),
+      ...tasks.slice(taskIndex + 1),
+    ];
+  
     render();
   };
 
   const toggleTaskDone = (taskIndex) => {
-    tasks[taskIndex].done = !tasks[taskIndex].done;
+    tasks = tasks.map((task, index) => 
+    index === taskIndex ? { ...task, done: !task.done } : task
+  );
+
     render();
+  };
+
+  const hideCompletedTasks = () => {
+    hideCompleted = !hideCompleted;
+    render();
+  };
+
+  const completeAllTasks = () => {
+    if (tasks.some(task => !task.done)) {
+      tasks = tasks.map(task => ({ ...task, done: true }));
+    };
+    render();
+  };
+
+  const getVisibleTasks = () => {
+    return tasks.filter(task => !hideCompleted || !task.done);
   };
 
   const bindEvents = () => {
     const removeButtons = document.querySelectorAll(".js-remove");
-
-    removeButtons.forEach((removeButton, index) => {
-      removeButton.addEventListener("click", () => {
-        removeTask(index);
-      });
-    });
-
     const toggleDoneButtons = document.querySelectorAll(".js-done");
 
-    toggleDoneButtons.forEach((toggleDoneButton, index) => {
-      toggleDoneButton.addEventListener("click", () => {
-        toggleTaskDone(index);
-      });
+    const removeTaskCallback = (index) => {
+      const visibleTasks = getVisibleTasks();
+      const actualIndex = tasks.indexOf(visibleTasks[index]);
+      removeTask(actualIndex);
+    };
+    
+    const toggleTaskDoneCallback = (index) => {
+      const visibleTasks = getVisibleTasks();
+      const actualIndex = tasks.indexOf(visibleTasks[index]);
+      toggleTaskDone(actualIndex);
+    };
+  
+    removeButtons.forEach((removeButton, index) => {
+      removeButton.removeEventListener("click", removeTaskCallback);
+      removeButton.addEventListener("click", () => removeTaskCallback(index));
     });
-  }
+    
+    toggleDoneButtons.forEach((toggleDoneButton, index) => {
+      toggleDoneButton.removeEventListener("click", toggleTaskDoneCallback);
+      toggleDoneButton.addEventListener("click", () => toggleTaskDoneCallback(index));
+    });
+  };
 
   const renderTasks = () => {
-    let htmlString = "";
-
-    for (const task of tasks) {
-      htmlString += `
+    const taskListElement = document.querySelector(".js-tasks");
+    const visibleTasks = getVisibleTasks();
+  
+    taskListElement.innerHTML = visibleTasks
+      .map(
+        (task, index) => `
         <li class="list__item ${task.done ? "list__item--done" : ""}">
-          <button class="js-done list__checkbox">
+          <button class="js-done list__checkbox" data-index="${index}">
             ${task.done ? "&#10004;" : ""}
           </button>
           <span class="list__text ${task.done ? "list__text--done" : ""}">
             ${task.content}
           </span>
-          <button class="js-remove list__deleteButton">
+          <button class="js-remove list__deleteButton" data-index="${index}">
             &#128465;
           </button>
-        </li>
-      `;
-    }
-
-    document.querySelector(".js-tasks").innerHTML = htmlString;
+        </li>`
+      )
+      .join("");
   };
 
-  const renderButtons = () => {};
+  const renderButtons = () => {
+    document.querySelector(".js-hideCompleted").textContent = hideCompleted ? "Pokaż ukończone" : "Ukryj ukończone";
+    document.querySelector(".js-completeAll").disabled = tasks.every(task => task.done);
+  };
 
-  const bindButtonsEvents = () => {};
+  const bindButtonsEvents = () => {
+    document.querySelector(".js-hideCompleted").addEventListener("click", hideCompletedTasks);
+    document.querySelector(".js-completeAll").addEventListener("click", completeAllTasks);
+  };
 
   const render = () => {
     renderTasks();    
     renderButtons();
-    
     bindEvents();
     bindButtonsEvents();
 

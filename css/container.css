@@ -6,9 +6,34 @@
 .container__header {
     padding: 15px;
     margin: auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
     border-bottom: 2px solid #eee;
     font-size: large;
     font-weight: 700;
+}
+
+.toggle {
+    padding: 5px;
+   border: none;
+   font-size: small;
+   color: #008080;
+   background-color: white;
+   cursor: pointer;
+}
+
+.toggle:hover {
+    color: hsl(180, 76%, 58%);
+}
+
+.toggle:active {
+    color: hsl(180, 100%, 55%);
+}
+
+.toggle:disabled {
+    color: #ccc;
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .container__inputBlock {
@@ -52,5 +77,17 @@
     .container {
         overflow-x: auto;
     }
-    
 }
+
+@media(max-width: 480px) {
+    .container__header {
+        grid-template-columns: 2fr;
+        gap: 10px;
+    }
+    .toggle {
+        height: 30px;
+        
+    }
+}
+
+
