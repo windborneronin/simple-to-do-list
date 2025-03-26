@@ -10,6 +10,7 @@ https://windborneronin.github.io/simple-to-do-list/
 ✅ Responsive design (smartphone-friendly);
 ✅ Keyboard focus returns to input after adding a task;
 ✅ Efficient event handling and delegation;
+✅ Complete All and Hide/Show Completed tasks;
 
 ## Technologies/methodology used
 - HTML5 - structure;
@@ -19,7 +20,7 @@ https://windborneronin.github.io/simple-to-do-list/
 
 ## Future enhancements 
 - adding task persistence;
-- filters for completed tasks;
+- filters for completed tasks; - implemented ✅
 - better UI;
 
 ## Notes
